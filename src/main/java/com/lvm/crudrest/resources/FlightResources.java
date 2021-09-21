@@ -2,6 +2,7 @@ package com.lvm.crudrest.resources;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lvm.crudrest.entity.Flights;
@@ -20,6 +20,7 @@ import com.lvm.crudrest.repositories.FlightRepository;
 @RequestMapping(value = "/flights")
 public class FlightResources {
 
+	@Autowired
 	private FlightRepository repository;
 	
 	FlightResources(FlightRepository flightRepository){
@@ -44,7 +45,7 @@ public class FlightResources {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Flights> updateFlights(@PathVariable("id") Long id, @RequestBody Flights flight ){
+	public ResponseEntity<Flights> updateFlights(@PathVariable("id") long id, @RequestBody Flights flight){
 		return repository.findById(id)
 				.map(record -> {
 					record.setFlightCompany(flight.getFlightCompany());
